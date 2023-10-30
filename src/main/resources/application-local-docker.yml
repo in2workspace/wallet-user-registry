@@ -1,0 +1,71 @@
+# Spring Configuration
+spring:
+  application:
+    name: Wallet User Registry
+
+# Server Configuration
+server:
+  port: ${SERVER_PORT}
+
+# Logging Configuration
+logging:
+  level:
+    es.in2.wallet.user.registry.api.service: DEBUG
+    es.in2.wallet.user.registry.api.utils: DEBUG
+
+# Actuator Configuration
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health, info, loggers, metrics
+      base-path: /
+      path-mapping:
+        health: health
+        info: info
+        loggers: loggers
+        metrics: metrics
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+    loggers:
+      enabled: true
+    metrics:
+      enabled: true
+
+# Documentation Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /spring-ui
+    tags-sorter: alpha
+    operations-sorter: method
+
+keycloak:
+  url: ${KEYCLOAK_URL}
+  realm: ${KEYCLOAK_REALM}
+  client-secret: ${KEYCLOAK_CLIENT_SECRET}
+  client-id: ${KEYCLOAK_CLIENT_ID}
+
+wallet-data:
+  url: ${WALLET_DATA_URL}
+
+openapi:
+  server:
+    url: ${APP_URL_API}
+    description: Wallet User Registry API
+  info:
+    title: IN2 Wallet User Registry project
+    version: 0.0.1
+    termsOfService: $apiUrl/terms-of-service
+    license:
+      name: MIT License
+      url: https://choosealicense.com/licenses/mit/
+    contact:
+      email: example@in2.es
+      name: IN2
+      url: https://in2.es
+    description: This API exposes endpoints to manage the IN2 Blockchain Connector component.
