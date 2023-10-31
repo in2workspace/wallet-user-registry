@@ -28,6 +28,7 @@ class KeycloakServiceImplTest {
 
     private TestableKeycloakService service;
 
+    // Creating mock objects for Keycloak and its related classes
     private final Keycloak mockKeycloak = Mockito.mock(Keycloak.class);
     private final RealmResource mockRealm = Mockito.mock(RealmResource.class);
     private final UsersResource mockUsers = Mockito.mock(UsersResource.class);
@@ -35,8 +36,10 @@ class KeycloakServiceImplTest {
     private final UserResource mockUserResource= Mockito.mock(UserResource.class);
     @BeforeEach
     public void setUp() {
+        // Initializing the service with test data
         service = new TestableKeycloakService("client", "https://example.com", "secret",
                 "example", "https://example2.com", applicationUtils);
+        // Creating a user representation for the mock responses
         UserRepresentation user = new UserRepresentation();
         user.setId("123");
         user.setUsername("user");
@@ -45,6 +48,7 @@ class KeycloakServiceImplTest {
         List<UserRepresentation> userList = new ArrayList<>();
         userList.add(user);
 
+        // Clearing previous invocations and setting up mock behaviors
         Mockito.clearInvocations(applicationUtils, mockKeycloak, mockRealm, mockUsers, mockResponse, mockUserResource);
         Mockito.when(mockKeycloak.realm(Mockito.anyString())).thenReturn(mockRealm);
         Mockito.when(mockRealm.users()).thenReturn(mockUsers);
@@ -58,7 +62,7 @@ class KeycloakServiceImplTest {
 
     @Test
     void registerUserInKeycloakTest() throws Exception {
-        // Configura tus mocks y cualquier otro setup necesario.
+        // Setting up mocks and any other necessary setup
         UserRequest userRequest = new UserRequest();
         userRequest.setUsername("user");
         userRequest.setEmail("user@example.com");
@@ -69,12 +73,14 @@ class KeycloakServiceImplTest {
 
         Mockito.when(applicationUtils.postRequest(Mockito.anyString(), Mockito.any(), Mockito.anyString())).thenReturn(response);
 
+        // Setting up mocks and any other necessary setup
         service.registerUserInKeycloak(userRequest);
 
-        // Verifica los resultados y las interacciones con los mocks.
+        // Verifying the results and interactions with the mocks
         Mockito.verify(mockUsers).create(Mockito.any());
     }
 
+    // Inner class to make getKeycloakClient method accessible for testing
     private class TestableKeycloakService extends KeycloakServiceImpl {
         public TestableKeycloakService(String clientId,
                                        String keycloakUrl, String clientSecret, String keycloakRealm, String walletDataUrl, ApplicationUtils applicationUtils) {

@@ -34,7 +34,7 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void registerUser(@RequestBody UserRequest userRequest) throws UserNotFoundException, FailedCommunicationException, IOException, InterruptedException, FailedCreatingUserException, UserAlreadyExists {
-        log.debug("AppUserController.registerUser()");
+        log.debug("UserController.registerUser()");
         log.debug(userRequest.getUsername());
         keycloakService.registerUserInKeycloak(userRequest);
 

@@ -83,6 +83,7 @@ public class KeycloakServiceImpl implements KeycloakService {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(userWalletData);
+        log.info("body: {}", body);
 
         List<Map.Entry<String, String>> headers = new ArrayList<>();
         headers.add(new AbstractMap.SimpleEntry<>(CONTENT_TYPE, CONTENT_TYPE_APPLICATION_JSON));
@@ -120,16 +121,17 @@ public class KeycloakServiceImpl implements KeycloakService {
 
         UserRepresentation user = toUserRepresentation(userData);
 
-        Response response = keycloak.realm(keycloakRealm).users().create(user);
-        keycloak.close();
-        log.info("Response {}", response.getStatus());
-        String responseBody = response.readEntity(String.class);
-        if (response.getStatus() == 409) {
-            throw new UserAlreadyExists("User already exists: " + responseBody);
-        } else if (response.getStatus() < 200 || response.getStatus() > 299) {
-            throw new FailedCreatingUserException("Response status " + response.getStatus() + ", user not created because " + responseBody);
+        try (Response response = keycloak.realm(keycloakRealm).users().create(user)) {
+            log.info("Response {}", response.getStatus());
+            String responseBody = response.readEntity(String.class);
+
+            if (response.getStatus() == 409) {
+                throw new UserAlreadyExists("User already exists: " + responseBody);
+            } else if (response.getStatus() < 200 || response.getStatus() > 299) {
+                throw new FailedCreatingUserException("Response status " + response.getStatus() + ", user not created because " + responseBody);
+            }
+            return getKeycloakIdByUsername(token, user.getUsername());
         }
-        return getKeycloakIdByUsername(token, user.getUsername());
     }
 
 
