@@ -10,7 +10,7 @@ import es.in2.wallet.user.registry.api.model.KeycloakUserDTO;
 import es.in2.wallet.user.registry.api.model.UserRequest;
 import es.in2.wallet.user.registry.api.model.UserRequestWalletData;
 import es.in2.wallet.user.registry.api.service.KeycloakService;
-import es.in2.wallet.user.registry.api.utils.ApplicationUtils;
+import es.in2.wallet.user.registry.api.util.ApplicationUtils;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
 import org.keycloak.admin.client.Keycloak;
@@ -31,8 +31,8 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-import static es.in2.wallet.user.registry.api.utils.ApiUtils.*;
-import static es.in2.wallet.user.registry.api.utils.ApiUtils.GRANT_TYPE;
+import static es.in2.wallet.user.registry.api.util.ApiUtils.*;
+import static es.in2.wallet.user.registry.api.util.ApiUtils.GRANT_TYPE;
 
 @Service
 public class KeycloakServiceImpl implements KeycloakService {

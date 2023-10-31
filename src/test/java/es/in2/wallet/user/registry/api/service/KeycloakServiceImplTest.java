@@ -2,7 +2,7 @@ package es.in2.wallet.user.registry.api.service;
 
 import es.in2.wallet.user.registry.api.model.UserRequest;
 import es.in2.wallet.user.registry.api.service.impl.KeycloakServiceImpl;
-import es.in2.wallet.user.registry.api.utils.ApplicationUtils;
+import es.in2.wallet.user.registry.api.util.ApplicationUtils;
 import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

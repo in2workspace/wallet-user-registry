@@ -10,7 +10,7 @@ server:
 logging:
   level:
     es.in2.wallet.user.registry.api.service: DEBUG
-    es.in2.wallet.user.registry.api.utils: DEBUG
+    es.in2.wallet.user.registry.api.util: DEBUG
 
 # Actuator Configuration
 management:

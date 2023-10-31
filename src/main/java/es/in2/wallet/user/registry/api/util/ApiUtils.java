@@ -1,4 +1,4 @@
-package es.in2.wallet.user.registry.api.utils;
+package es.in2.wallet.user.registry.api.util;
 
 public final class ApiUtils {
     public static final String CONTENT_TYPE = "Content-Type";

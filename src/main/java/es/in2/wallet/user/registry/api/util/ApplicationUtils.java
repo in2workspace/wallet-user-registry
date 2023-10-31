@@ -1,4 +1,4 @@
-package es.in2.wallet.user.registry.api.utils;
+package es.in2.wallet.user.registry.api.util;
 
 import es.in2.wallet.user.registry.api.exception.FailedCommunicationException;
 import org.slf4j.Logger;
