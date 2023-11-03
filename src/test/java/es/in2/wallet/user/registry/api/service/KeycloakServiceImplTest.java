@@ -15,6 +15,7 @@ import org.keycloak.representations.idm.UserRepresentation;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +35,25 @@ class KeycloakServiceImplTest {
     private final UsersResource mockUsers = Mockito.mock(UsersResource.class);
     private final Response mockResponse = Mockito.mock(Response.class);
     private final UserResource mockUserResource= Mockito.mock(UserResource.class);
+
     @BeforeEach
     public void setUp() {
+        String keycloakUrl = "https://exmaple.com";
+        String keycloakRealm = "exmaple";
+        String clientSecret = "1234";
+        String clientId = "client";
+        String walletDataUrl = "https://exmaple2.com";
         // Initializing the service with test data
-        service = new TestableKeycloakService("client", "https://example.com", "secret",
-                "example", "https://example2.com", applicationUtils);
+        service = new TestableKeycloakService(applicationUtils);
+        ReflectionTestUtils.setField(service, "keycloakUrl", keycloakUrl);
+        ReflectionTestUtils.setField(service, "keycloakRealm", keycloakRealm);
+        ReflectionTestUtils.setField(service, "clientSecret", clientSecret);
+        ReflectionTestUtils.setField(service, "clientId", clientId);
+        ReflectionTestUtils.setField(service, "walletDataUrl", walletDataUrl);
+
+
+
+
         // Creating a user representation for the mock responses
         UserRepresentation user = new UserRepresentation();
         user.setId("123");
@@ -82,9 +97,8 @@ class KeycloakServiceImplTest {
 
     // Inner class to make getKeycloakClient method accessible for testing
     private class TestableKeycloakService extends KeycloakServiceImpl {
-        public TestableKeycloakService(String clientId,
-                                       String keycloakUrl, String clientSecret, String keycloakRealm, String walletDataUrl, ApplicationUtils applicationUtils) {
-            super(clientId, keycloakUrl, clientSecret,keycloakRealm,walletDataUrl, applicationUtils);
+        public TestableKeycloakService(ApplicationUtils applicationUtils) {
+            super(applicationUtils);
         }
 
         @Override

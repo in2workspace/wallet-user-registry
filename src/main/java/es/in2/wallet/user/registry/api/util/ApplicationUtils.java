@@ -1,8 +1,7 @@
 package es.in2.wallet.user.registry.api.util;
 
 import es.in2.wallet.user.registry.api.exception.FailedCommunicationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
@@ -16,9 +15,8 @@ import java.util.Map;
 import java.net.URI;
 
 @Component
+@Slf4j
 public class ApplicationUtils {
-
-    private static final Logger log = LoggerFactory.getLogger(ApplicationUtils.class);
     public String postRequest(String url, List<Map.Entry<String, String>> headers, String body) throws FailedCommunicationException, IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = httpRequestBuilder(url, headers)

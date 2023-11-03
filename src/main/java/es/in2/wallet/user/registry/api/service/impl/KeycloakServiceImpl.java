@@ -13,6 +13,8 @@ import es.in2.wallet.user.registry.api.service.KeycloakService;
 import es.in2.wallet.user.registry.api.util.ApplicationUtils;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.admin.client.resource.RealmResource;
@@ -20,9 +22,6 @@ import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -35,32 +34,27 @@ import static es.in2.wallet.user.registry.api.util.ApiUtils.*;
 import static es.in2.wallet.user.registry.api.util.ApiUtils.GRANT_TYPE;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class KeycloakServiceImpl implements KeycloakService {
 
-    private static final Logger log = LoggerFactory.getLogger(KeycloakServiceImpl.class);
+    @Value("${keycloak.url}")
+    private String keycloakUrl;
 
-    private final String keycloakUrl;
-    private final String keycloakRealm;
-    private final String clientSecret;
-    private final String clientId;
-    private final String walletDataUrl;
+    @Value("${keycloak.realm}")
+    private String keycloakRealm;
+
+    @Value("${keycloak.client-secret}")
+    private String clientSecret;
+
+    @Value("${keycloak.client-id}")
+    private String clientId;
+
+    @Value("${wallet-data.url}")
+    private String walletDataUrl;
+
     private final ApplicationUtils applicationUtils;
 
-    @Autowired
-    public KeycloakServiceImpl(
-            @Value("${keycloak.url}") String keycloakUrl,
-            @Value("${keycloak.realm}") String keycloakRealm,
-            @Value("${keycloak.client-secret}") String clientSecret,
-            @Value("${keycloak.client-id}") String clientId,
-            @Value("${wallet-data.url}") String walletDataUrl,
-            ApplicationUtils applicationUtils) {
-        this.keycloakUrl = keycloakUrl;
-        this.keycloakRealm = keycloakRealm;
-        this.clientSecret = clientSecret;
-        this.clientId = clientId;
-        this.walletDataUrl = walletDataUrl;
-        this.applicationUtils = applicationUtils;
-    }
 
     @Override
     public void registerUserInKeycloak(UserRequest userRequest) throws FailedCommunicationException, IOException, InterruptedException, UserNotFoundException, FailedCreatingUserException, UserAlreadyExists {
