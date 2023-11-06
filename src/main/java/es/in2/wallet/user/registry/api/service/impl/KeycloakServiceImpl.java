@@ -8,7 +8,6 @@ import es.in2.wallet.user.registry.api.exception.UserAlreadyExists;
 import es.in2.wallet.user.registry.api.exception.UserNotFoundException;
 import es.in2.wallet.user.registry.api.model.KeycloakUserDTO;
 import es.in2.wallet.user.registry.api.model.UserRequest;
-import es.in2.wallet.user.registry.api.model.UserRequestWalletData;
 import es.in2.wallet.user.registry.api.service.KeycloakService;
 import es.in2.wallet.user.registry.api.util.ApplicationUtils;
 import jakarta.transaction.Transactional;
@@ -50,14 +49,11 @@ public class KeycloakServiceImpl implements KeycloakService {
     @Value("${keycloak.client-id}")
     private String clientId;
 
-    @Value("${wallet-data.url}")
-    private String walletDataUrl;
-
     private final ApplicationUtils applicationUtils;
 
 
     @Override
-    public void registerUserInKeycloak(UserRequest userRequest) throws FailedCommunicationException, IOException, InterruptedException, UserNotFoundException, FailedCreatingUserException, UserAlreadyExists {
+    public String registerUserInKeycloak(UserRequest userRequest) throws FailedCommunicationException, IOException, InterruptedException, UserNotFoundException, FailedCreatingUserException, UserAlreadyExists {
         CredentialRepresentation credential = new CredentialRepresentation();
         credential.setType(CredentialRepresentation.PASSWORD);
         credential.setValue(userRequest.getPassword());
@@ -72,18 +68,7 @@ public class KeycloakServiceImpl implements KeycloakService {
         user.setCredentials(credentials);
         user.setEnabled(true);
 
-        String userId = createUserInKeycloak(user);
-        UserRequestWalletData userWalletData = new UserRequestWalletData(userId,userRequest.getUsername(),userRequest.getEmail());
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(userWalletData);
-        log.info("body: {}", body);
-
-        List<Map.Entry<String, String>> headers = new ArrayList<>();
-        headers.add(new AbstractMap.SimpleEntry<>(CONTENT_TYPE, CONTENT_TYPE_APPLICATION_JSON));
-
-        String url = walletDataUrl + "/api/users";
-        applicationUtils.postRequest(url, headers, body);
+        return createUserInKeycloak(user);
     }
     private String getKeycloakClientToken() throws InterruptedException, FailedCommunicationException, IOException {
         String url = keycloakUrl + "/realms/" + keycloakRealm + "/protocol/openid-connect/token";

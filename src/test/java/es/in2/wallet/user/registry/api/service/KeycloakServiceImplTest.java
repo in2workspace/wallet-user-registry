@@ -42,14 +42,12 @@ class KeycloakServiceImplTest {
         String keycloakRealm = "exmaple";
         String clientSecret = "1234";
         String clientId = "client";
-        String walletDataUrl = "https://exmaple2.com";
         // Initializing the service with test data
         service = new TestableKeycloakService(applicationUtils);
         ReflectionTestUtils.setField(service, "keycloakUrl", keycloakUrl);
         ReflectionTestUtils.setField(service, "keycloakRealm", keycloakRealm);
         ReflectionTestUtils.setField(service, "clientSecret", clientSecret);
         ReflectionTestUtils.setField(service, "clientId", clientId);
-        ReflectionTestUtils.setField(service, "walletDataUrl", walletDataUrl);
 
 
 

@@ -5,7 +5,7 @@ import es.in2.wallet.user.registry.api.exception.FailedCreatingUserException;
 import es.in2.wallet.user.registry.api.exception.UserAlreadyExists;
 import es.in2.wallet.user.registry.api.exception.UserNotFoundException;
 import es.in2.wallet.user.registry.api.model.UserRequest;
-import es.in2.wallet.user.registry.api.service.KeycloakService;
+import es.in2.wallet.user.registry.api.service.CreateUserFacadeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,14 +23,14 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
-    private final KeycloakService keycloakService;
+    private final CreateUserFacadeService createUserFacadeService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void registerUser(@RequestBody UserRequest userRequest) throws UserNotFoundException, FailedCommunicationException, IOException, InterruptedException, FailedCreatingUserException, UserAlreadyExists {
         log.debug("UserController.registerUser()");
         log.debug(userRequest.getUsername());
-        keycloakService.registerUserInKeycloak(userRequest);
+        createUserFacadeService.createUser(userRequest);
 
     }
 }

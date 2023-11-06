@@ -1,6 +1,6 @@
 package es.in2.wallet.user.registry.api.controller;
 
-import es.in2.wallet.user.registry.api.service.KeycloakService;
+import es.in2.wallet.user.registry.api.service.CreateUserFacadeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +24,7 @@ class UserControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private KeycloakService keycloakService;
+    private CreateUserFacadeService createUserFacadeService;
 
     @BeforeEach
     void setUp(WebApplicationContext wac) {
