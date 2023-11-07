@@ -50,7 +50,7 @@ keycloak:
   client-id: wallet-client
 
 wallet-data:
-  url: http://localhost:8086
+  url: http://localhost:8086/api/users
 
 openapi:
   server:
