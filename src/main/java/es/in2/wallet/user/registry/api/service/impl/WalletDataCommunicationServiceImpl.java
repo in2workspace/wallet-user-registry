@@ -24,13 +24,15 @@ import static es.in2.wallet.user.registry.api.util.ApiUtils.CONTENT_TYPE_APPLICA
 @RequiredArgsConstructor
 @Slf4j
 public class WalletDataCommunicationServiceImpl implements WalletDataCommunicationService {
+
     @Value("${wallet-data.url}")
     private String walletDataUrl;
+
     private final ApplicationUtils applicationUtils;
 
     @Override
     public void saveUserDataOnWalletData(UserRequest userRequest, String userId) throws IOException, FailedCommunicationException, InterruptedException {
-        UserRequestWalletData userWalletData = new UserRequestWalletData(userId,userRequest.getUsername(),userRequest.getEmail());
+        UserRequestWalletData userWalletData = new UserRequestWalletData(userId, userRequest.getUsername(), userRequest.getEmail());
 
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(userWalletData);

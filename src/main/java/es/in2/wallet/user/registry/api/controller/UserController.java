@@ -1,7 +1,7 @@
 package es.in2.wallet.user.registry.api.controller;
 
 import es.in2.wallet.user.registry.api.exception.FailedCommunicationException;
-import es.in2.wallet.user.registry.api.exception.FailedCreatingUserException;
+import es.in2.wallet.user.registry.api.exception.UserCreationException;
 import es.in2.wallet.user.registry.api.exception.UserAlreadyExists;
 import es.in2.wallet.user.registry.api.exception.UserNotFoundException;
 import es.in2.wallet.user.registry.api.model.UserRequest;
@@ -27,7 +27,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerUser(@RequestBody UserRequest userRequest) throws UserNotFoundException, FailedCommunicationException, IOException, InterruptedException, FailedCreatingUserException, UserAlreadyExists {
+    public void registerUser(@RequestBody UserRequest userRequest) throws UserNotFoundException, FailedCommunicationException, IOException, InterruptedException, UserCreationException, UserAlreadyExists {
         log.debug("UserController.registerUser()");
         log.debug(userRequest.getUsername());
         createUserFacadeService.createUser(userRequest);

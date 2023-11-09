@@ -1,7 +1,7 @@
 package es.in2.wallet.user.registry.api.exception.handler;
 
 import es.in2.wallet.user.registry.api.exception.FailedCommunicationException;
-import es.in2.wallet.user.registry.api.exception.FailedCreatingUserException;
+import es.in2.wallet.user.registry.api.exception.UserCreationException;
 import es.in2.wallet.user.registry.api.exception.UserAlreadyExists;
 import es.in2.wallet.user.registry.api.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +25,8 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(FailedCreatingUserException.class)
-    public ResponseEntity<Void> failedCreatingUserException(FailedCreatingUserException e) {
+    @ExceptionHandler(UserCreationException.class)
+    public ResponseEntity<Void> failedCreatingUserException(UserCreationException e) {
         log.error(e.getMessage());
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

@@ -2,10 +2,7 @@ package es.in2.wallet.user.registry.api.service.impl;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import es.in2.wallet.user.registry.api.exception.FailedCommunicationException;
-import es.in2.wallet.user.registry.api.exception.FailedCreatingUserException;
-import es.in2.wallet.user.registry.api.exception.UserAlreadyExists;
-import es.in2.wallet.user.registry.api.exception.UserNotFoundException;
+import es.in2.wallet.user.registry.api.exception.*;
 import es.in2.wallet.user.registry.api.model.KeycloakUserDTO;
 import es.in2.wallet.user.registry.api.model.UserRequest;
 import es.in2.wallet.user.registry.api.service.KeycloakService;
@@ -30,7 +27,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import static es.in2.wallet.user.registry.api.util.ApiUtils.*;
-import static es.in2.wallet.user.registry.api.util.ApiUtils.GRANT_TYPE;
 
 @Service
 @RequiredArgsConstructor
@@ -53,23 +49,32 @@ public class KeycloakServiceImpl implements KeycloakService {
 
 
     @Override
-    public String registerUserInKeycloak(UserRequest userRequest) throws FailedCommunicationException, IOException, InterruptedException, UserNotFoundException, FailedCreatingUserException, UserAlreadyExists {
-        CredentialRepresentation credential = new CredentialRepresentation();
-        credential.setType(CredentialRepresentation.PASSWORD);
-        credential.setValue(userRequest.getPassword());
-        credential.setTemporary(false);
+    @Transactional
+    public String registerUserInKeycloak(UserRequest userRequest) throws UserKeycloakRegistryException {
 
-        List<CredentialRepresentation> credentials = Collections.singletonList(credential);
+        try {
+            CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
+            credentialRepresentation.setType(CredentialRepresentation.PASSWORD);
+            credentialRepresentation.setValue(userRequest.getPassword());
+            credentialRepresentation.setTemporary(false);
 
-        KeycloakUserDTO user = new KeycloakUserDTO();
-        user.setUsername(userRequest.getUsername());
-        user.setEmail(userRequest.getEmail());
-        user.setId(null);
-        user.setCredentials(credentials);
-        user.setEnabled(true);
+            List<CredentialRepresentation> credentials = Collections.singletonList(credentialRepresentation);
 
-        return createUserInKeycloak(user);
+            return createUserInKeycloak(KeycloakUserDTO.builder()
+                    .username(userRequest.getUsername())
+                    .email(userRequest.getEmail())
+                    .id(null)
+                    .credentials(credentials)
+                    .enabled(true)
+                    .build());
+
+        } catch (Exception e) {
+            // FailedCommunicationException, IOException, InterruptedException, UserNotFoundException,
+            // FailedCreatingUserException, UserAlreadyExists,
+            throw new UserKeycloakRegistryException(e.getMessage(), e.getCause());
+        }
     }
+
     private String getKeycloakClientToken() throws InterruptedException, FailedCommunicationException, IOException {
         String url = keycloakUrl + "/realms/" + keycloakRealm + "/protocol/openid-connect/token";
 
@@ -91,10 +96,7 @@ public class KeycloakServiceImpl implements KeycloakService {
         return jsonObject.get("access_token").toString();
     }
 
-
-    @Override
-    @Transactional
-    public String createUserInKeycloak(KeycloakUserDTO userData) throws FailedCommunicationException, IOException, InterruptedException, UserNotFoundException, FailedCreatingUserException, UserAlreadyExists {
+    private String createUserInKeycloak(KeycloakUserDTO userData) throws FailedCommunicationException, IOException, InterruptedException, UserNotFoundException, UserCreationException, UserAlreadyExists {
         String token = getKeycloakClientToken();
         Keycloak keycloak = getKeycloakClient(token);
 
@@ -107,7 +109,7 @@ public class KeycloakServiceImpl implements KeycloakService {
             if (response.getStatus() == 409) {
                 throw new UserAlreadyExists("User already exists: " + responseBody);
             } else if (response.getStatus() < 200 || response.getStatus() > 299) {
-                throw new FailedCreatingUserException("Response status " + response.getStatus() + ", user not created because " + responseBody);
+                throw new UserCreationException("Response status " + response.getStatus() + ", user not created because " + responseBody);
             }
             return getKeycloakIdByUsername(token, user.getUsername());
         }
@@ -131,6 +133,7 @@ public class KeycloakServiceImpl implements KeycloakService {
         user.setCredentials(userData.getCredentials());
         return user;
     }
+
     private RealmResource getKeycloakRealm(String token) {
         return getKeycloakClient(token).realm(keycloakRealm);
     }
