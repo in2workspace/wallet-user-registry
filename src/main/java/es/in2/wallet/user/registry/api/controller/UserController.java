@@ -19,7 +19,7 @@ import java.io.IOException;
 
 
 @RestController
-@RequestMapping(value = "/api/users")
+@RequestMapping(value = "/api/v1/users")
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
