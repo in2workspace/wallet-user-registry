@@ -35,7 +35,7 @@ wallet-user-registry:
     SERVER_PORT: "8085"
     APP_URL_API: "http://wallet-user-registry:8085"
     WALLET_DATA_URL: "http://wallet-data:8086/api/users"
-    KEYCLOAK_URL: "http://<your-keycloak-url>"
+    KEYCLOAK_URL: "<your-keycloak-url>"
     KEYCLOAK_REALM: "<your-keycloak-realm>"
     KEYCLOAK_CLIENT_SECRET: "<your-keycloak-client-secret>"
     KEYCLOAK_CLIENT_ID: "<your-keycloak-client-id>"
@@ -58,4 +58,4 @@ For any inquiries or collaboration, you can contact us at:
 
 ## Creation Date and Update Dates
 * **Creation Date:** November 9, 2023
-* **Last Updated:** November 29, 2023
+* **Last Updated:** December 4, 2023
