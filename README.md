@@ -33,12 +33,12 @@ wallet-user-registry:
   environment:
     SPRING_PROFILES_ACTIVE: "local-docker"
     SERVER_PORT: "8085"
-    APP_URL_API: "http://wallet-user-registry:8085"
-    WALLET_DATA_URL: "http://wallet-data:8086/api/users"
+    OPENAPI_SERVER_URL: "http://wallet-user-registry:8085"
+    WALLET-DATA_URL: "http://wallet-data:8086/api/users"
     KEYCLOAK_URL: "<your-keycloak-url>"
     KEYCLOAK_REALM: "<your-keycloak-realm>"
-    KEYCLOAK_CLIENT_SECRET: "<your-keycloak-client-secret>"
-    KEYCLOAK_CLIENT_ID: "<your-keycloak-client-id>"
+    KEYCLOAK_CLIENT-SECRET: "<your-keycloak-client-secret>"
+    KEYCLOAK_CLIENT-ID: "<your-keycloak-client-id>"
   ports:
     - "8085:8085"
   networks:
