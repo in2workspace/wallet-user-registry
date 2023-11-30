@@ -50,21 +50,21 @@ keycloak:
   client-id: wallet-client
 
 wallet-data:
-  url: http://localhost:8086/api/users
+  url: http://localhost:8086/api/v1/users
 
 openapi:
   server:
     url: http://localhost:8085
-    description: Spring Wallet User Registry API
+    description: Wallet User Registry API
   info:
-    title: IN2 Wallet User Registry API project
+    title: IN2 Wallet User Registry project
     version: 0.0.1
     termsOfService: $apiUrl/terms-of-service
     license:
       name: MIT License
       url: https://choosealicense.com/licenses/mit/
     contact:
-      email: example@in2.es
+      email: info@in2.es
       name: IN2
       url: https://in2.es
-    description: This API exposes endpoints to manage the IN2 Blockchain Connector component.
+    description: This API exposes endpoints to manage the IN2 Wallet User Registry component.

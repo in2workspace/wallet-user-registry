@@ -10,27 +10,52 @@ Developed with Java 17 and Spring Boot 3.1.5, this microservice adheres to the p
 * Security: Leverages Keycloak security capabilities to protect API endpoints, ensuring that only authorized users can access sensitive information.
 * Integration with Keycloak: Designed to work seamlessly with Keycloak, facilitating user management and authentication.
 
-## Flows
-
-### Register User
-In this flow, the user is persisted in two distinct locations: the Identity Provider (Keycloak) and the Data storage, both associated with the same ID for correlation purposes. Here's a diagram of the process:
-
-[![](https://www.mermaidchart.com/raw/d2516ee3-fb6f-4381-ae66-12caddef08b3?version=v0.1&theme=light&format=svg)](https://www.mermaidchart.com/raw/d2516ee3-fb6f-4381-ae66-12caddef08b3?version=v0.1&theme=light&format=svg)
-
-## Getting Started
+## Installation
 ### Prerequisites
-- [Java 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
-- [Gradle](https://gradle.org/install/)
-- [Spring Boot](https://spring.io/projects/spring-boot)
 - [Docker Desktop](https://www.docker.com/)
-- [IntelliJ IDEA](https://www.jetbrains.com/idea/)
 - [Git](https://git-scm.com/)
-- [Orion-LD-Adapter](https://github.com/in2workspace/in2-orionld-adapter.git)
-- [Wallet-Data](https://github.com/in2workspace/wallet-data.git)
 
-## Api references (Local-docker Environment)
-* Swagger: http://localhost:8085/swagger-ui.html
-* OpenAPI: http://localhost:8085/api-docs
+### Dependencies for Installation
+To install and run the Wallet-User-Registry, you will need the following dependencies:
+* Keycloak: You should have a working instance of Keycloak. For instructions on how to install and configure Keycloak, [visit their official documentation](https://www.keycloak.org/documentation.html)
 
-## Document version
-* v0.0.0
+* Wallet-Data: This component is necessary for managing user data. For its installation, follow the guide provided here: [Wallet-Data Configuration Component.](https://github.com/in2workspace/wallet-data)
+
+Once you have these dependencies set up and running, you can proceed with configuring the Wallet-User-Registry.
+
+## Configuration
+Now that you have the necessary dependencies, you can configure the wallet-user-registry using the following docker-compose. Ensure to adjust the environment variables to match your Keycloak and Wallet-Data configurations.
+* Wallet-User-Registry Configuration
+```yaml
+wallet-user-registry:
+  container_name: wallet-user-registry
+  image: in2kizuna/wallet-user-registry:v1.0.0 
+  environment:
+    SPRING_PROFILES_ACTIVE: "local-docker"
+    SERVER_PORT: "8085"
+    APP_URL_API: "http://wallet-user-registry:8085"
+    WALLET_DATA_URL: "http://wallet-data:8086/api/users"
+    KEYCLOAK_URL: "http://<your-keycloak-url>"
+    KEYCLOAK_REALM: "<your-keycloak-realm>"
+    KEYCLOAK_CLIENT_SECRET: "<your-keycloak-client-secret>"
+    KEYCLOAK_CLIENT_ID: "<your-keycloak-client-id>"
+  ports:
+    - "8085:8085"
+  networks:
+    local_network:
+```
+**Important Note**:
+> It is crucial that the client in Keycloak is configured with the appropriate permissions for user creation, as it will be responsible for this task.
+
+## Project Status 
+The project is currently at version **1.0.0** and is in a stable state.
+
+## Contact
+For any inquiries or collaboration, you can contact us at:
+* **Email:** [info@in2.es](mailto:info@in2.es)
+* **Name:** IN2, Ingeniería de la Información
+* **Website:** [https://in2.es](https://in2.es)
+
+## Creation Date and Update Dates
+* **Creation Date:** November 9, 2023
+* **Last Updated:** November 29, 2023
