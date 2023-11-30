@@ -64,7 +64,7 @@ openapi:
       name: MIT License
       url: https://choosealicense.com/licenses/mit/
     contact:
-      email: info@in2.es
-      name: IN2
-      url: https://in2.es
+      email: info@example.es
+      name: example
+      url: https://example.com
     description: This API exposes endpoints to manage the IN2 Wallet User Registry component.

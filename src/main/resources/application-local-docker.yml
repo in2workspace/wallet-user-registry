@@ -5,7 +5,7 @@ spring:
 
 # Server Configuration
 server:
-  port: ${SERVER_PORT}
+  port:
 
 # Logging Configuration
 logging:
@@ -45,17 +45,17 @@ springdoc:
     operations-sorter: method
 
 keycloak:
-  url: ${KEYCLOAK_URL}
-  realm: ${KEYCLOAK_REALM}
-  client-secret: ${KEYCLOAK_CLIENT_SECRET}
-  client-id: ${KEYCLOAK_CLIENT_ID}
+  url:
+  realm:
+  client-secret:
+  client-id:
 
 wallet-data:
-  url: ${WALLET_DATA_URL}
+  url:
 
 openapi:
   server:
-    url: ${APP_URL_API}
+    url:
     description: Wallet User Registry API
   info:
     title: IN2 Wallet User Registry project
@@ -65,7 +65,7 @@ openapi:
       name: MIT License
       url: https://choosealicense.com/licenses/mit/
     contact:
-      email: info@in2.es
-      name: IN2
-      url: https://in2.es
+      email: info@example.es
+      name: example
+      url: https://example.com
     description: This API exposes endpoints to manage the IN2 Wallet User Registry component.
