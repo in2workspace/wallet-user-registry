@@ -1,6 +1,7 @@
 package es.in2.wallet.user.registry.api.service;
 
-import es.in2.wallet.user.registry.api.model.UserRequest;
+import es.in2.wallet.user.registry.api.config.properties.KeycloakProperties;
+import es.in2.wallet.user.registry.api.domain.UserRequest;
 import es.in2.wallet.user.registry.api.service.impl.KeycloakServiceImpl;
 import es.in2.wallet.user.registry.api.util.ApplicationUtils;
 import jakarta.ws.rs.core.Response;
@@ -15,7 +16,6 @@ import org.keycloak.representations.idm.UserRepresentation;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,15 +42,9 @@ class KeycloakServiceImplTest {
         String keycloakRealm = "exmaple";
         String clientSecret = "1234";
         String clientId = "client";
+        KeycloakProperties keycloakProperties = new KeycloakProperties(keycloakUrl,keycloakRealm,clientSecret,clientId);
         // Initializing the service with test data
-        service = new TestableKeycloakService(applicationUtils);
-        ReflectionTestUtils.setField(service, "keycloakUrl", keycloakUrl);
-        ReflectionTestUtils.setField(service, "keycloakRealm", keycloakRealm);
-        ReflectionTestUtils.setField(service, "clientSecret", clientSecret);
-        ReflectionTestUtils.setField(service, "clientId", clientId);
-
-
-
+        service = new TestableKeycloakService(keycloakProperties,applicationUtils);
 
         // Creating a user representation for the mock responses
         UserRepresentation user = new UserRepresentation();
@@ -65,7 +59,7 @@ class KeycloakServiceImplTest {
         Mockito.clearInvocations(applicationUtils, mockKeycloak, mockRealm, mockUsers, mockResponse, mockUserResource);
         Mockito.when(mockKeycloak.realm(Mockito.anyString())).thenReturn(mockRealm);
         Mockito.when(mockRealm.users()).thenReturn(mockUsers);
-        Mockito.when(mockUsers.search("user")).thenReturn(userList);// Asegúrate de configurar correctamente los argumentos aquí
+        Mockito.when(mockUsers.search("user")).thenReturn(userList);
         Mockito.when(mockUsers.create(Mockito.any())).thenReturn(mockResponse);
         Mockito.when(mockUsers.get("123")).thenReturn(mockUserResource);
         Mockito.when(mockUserResource.toRepresentation()).thenReturn(user);
@@ -95,8 +89,8 @@ class KeycloakServiceImplTest {
 
     // Inner class to make getKeycloakClient method accessible for testing
     private class TestableKeycloakService extends KeycloakServiceImpl {
-        public TestableKeycloakService(ApplicationUtils applicationUtils) {
-            super(applicationUtils);
+        public TestableKeycloakService(KeycloakProperties keycloakProperties,ApplicationUtils applicationUtils) {
+            super(keycloakProperties,applicationUtils);
         }
 
         @Override

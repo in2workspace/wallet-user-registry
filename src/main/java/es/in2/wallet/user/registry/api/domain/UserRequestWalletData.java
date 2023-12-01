@@ -1,4 +1,4 @@
-package es.in2.wallet.user.registry.api.model;
+package es.in2.wallet.user.registry.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
