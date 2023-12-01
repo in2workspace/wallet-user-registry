@@ -1,7 +1,7 @@
 package es.in2.wallet.user.registry.api.service.impl;
 
 import es.in2.wallet.user.registry.api.exception.UserCreationException;
-import es.in2.wallet.user.registry.api.model.UserRequest;
+import es.in2.wallet.user.registry.api.domain.UserRequest;
 import es.in2.wallet.user.registry.api.service.CreateUserFacadeService;
 import es.in2.wallet.user.registry.api.service.KeycloakService;
 import es.in2.wallet.user.registry.api.service.WalletDataCommunicationService;

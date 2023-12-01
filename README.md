@@ -31,7 +31,6 @@ wallet-user-registry:
   container_name: wallet-user-registry
   image: in2kizuna/wallet-user-registry:v1.0.0 
   environment:
-    SPRING_PROFILES_ACTIVE: "local-docker"
     SERVER_PORT: "8085"
     OPENAPI_SERVER_URL: "http://wallet-user-registry:8085"
     WALLET-DATA_URL: "http://wallet-data:8086/api/users"
@@ -45,7 +44,7 @@ wallet-user-registry:
     local_network:
 ```
 **Important Note**:
-> It is crucial that the client in Keycloak is configured with the appropriate permissions for user creation, as it will be responsible for this task.
+> The provided configuration is for connecting to HashiCorp Vault. If you wish to connect to Azure Key Vault, you will need to adjust the environment variables accordingly to use Azure's configurations.
 
 ## Project Status 
 The project is currently at version **1.0.0** and is in a stable state.

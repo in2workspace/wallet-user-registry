@@ -2,10 +2,9 @@
 spring:
   application:
     name: Wallet User Registry
-
 # Server Configuration
 server:
-  port:
+  port: 8085
 
 # Logging Configuration
 logging:
@@ -45,17 +44,17 @@ springdoc:
     operations-sorter: method
 
 keycloak:
-  url:
-  realm:
-  client-secret:
-  client-id:
+  url: http://localhost:8084
+  realm: WalletIdP
+  client-secret: fV51P8jFBo8VnFKMMuP3imw3H3i5mNck
+  client-id: wallet-client
 
 wallet-data:
-  url:
+  url: http://localhost:8086
 
 openapi:
   server:
-    url:
+    url: http://localhost:8085
     description: Wallet User Registry API
   info:
     title: IN2 Wallet User Registry project

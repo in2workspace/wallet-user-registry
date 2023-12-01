@@ -2,9 +2,10 @@ package es.in2.wallet.user.registry.api.service.impl;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import es.in2.wallet.user.registry.api.config.properties.KeycloakProperties;
 import es.in2.wallet.user.registry.api.exception.*;
-import es.in2.wallet.user.registry.api.model.KeycloakUserDTO;
-import es.in2.wallet.user.registry.api.model.UserRequest;
+import es.in2.wallet.user.registry.api.domain.KeycloakUserDTO;
+import es.in2.wallet.user.registry.api.domain.UserRequest;
 import es.in2.wallet.user.registry.api.service.KeycloakService;
 import es.in2.wallet.user.registry.api.util.ApplicationUtils;
 import jakarta.transaction.Transactional;
@@ -18,7 +19,6 @@ import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -33,17 +33,7 @@ import static es.in2.wallet.user.registry.api.util.ApiUtils.*;
 @Slf4j
 public class KeycloakServiceImpl implements KeycloakService {
 
-    @Value("${keycloak.url}")
-    private String keycloakUrl;
-
-    @Value("${keycloak.realm}")
-    private String keycloakRealm;
-
-    @Value("${keycloak.client-secret}")
-    private String clientSecret;
-
-    @Value("${keycloak.client-id}")
-    private String clientId;
+    private final KeycloakProperties keycloakProperties;
 
     private final ApplicationUtils applicationUtils;
 
@@ -76,14 +66,14 @@ public class KeycloakServiceImpl implements KeycloakService {
     }
 
     private String getKeycloakClientToken() throws InterruptedException, FailedCommunicationException, IOException {
-        String url = keycloakUrl + "/realms/" + keycloakRealm + "/protocol/openid-connect/token";
+        String url = keycloakProperties.url() + "/realms/" + keycloakProperties.realm() + "/protocol/openid-connect/token";
 
         List<Map.Entry<String, String>> headers = new ArrayList<>();
         headers.add(new AbstractMap.SimpleEntry<>(CONTENT_TYPE, CONTENT_TYPE_URL_ENCODED_FORM));
 
         String body = "grant_type=" + URLEncoder.encode(GRANT_TYPE, StandardCharsets.UTF_8) +
-                "&client_id=" + URLEncoder.encode(clientId, StandardCharsets.UTF_8) +
-                "&client_secret=" + URLEncoder.encode(clientSecret, StandardCharsets.UTF_8);
+                "&client_id=" + URLEncoder.encode(keycloakProperties.clientId(), StandardCharsets.UTF_8) +
+                "&client_secret=" + URLEncoder.encode(keycloakProperties.clientSecret(), StandardCharsets.UTF_8);
 
         String response = applicationUtils.postRequest(url, headers, body);
 
@@ -102,7 +92,7 @@ public class KeycloakServiceImpl implements KeycloakService {
 
         UserRepresentation user = toUserRepresentation(userData);
 
-        try (Response response = keycloak.realm(keycloakRealm).users().create(user)) {
+        try (Response response = keycloak.realm(keycloakProperties.realm()).users().create(user)) {
             log.info("Response {}", response.getStatus());
             String responseBody = response.readEntity(String.class);
 
@@ -135,7 +125,7 @@ public class KeycloakServiceImpl implements KeycloakService {
     }
 
     private RealmResource getKeycloakRealm(String token) {
-        return getKeycloakClient(token).realm(keycloakRealm);
+        return getKeycloakClient(token).realm(keycloakProperties.realm());
     }
 
     private UserResource getUserResource(RealmResource realmResource, String username) throws UserNotFoundException {
@@ -151,8 +141,8 @@ public class KeycloakServiceImpl implements KeycloakService {
 
     protected Keycloak getKeycloakClient(String token) {
         return KeycloakBuilder.builder()
-                .serverUrl(keycloakUrl)
-                .realm(keycloakRealm)
+                .serverUrl(keycloakProperties.url())
+                .realm(keycloakProperties.realm())
                 .authorization("Bearer " + token)
                 .build();
     }
