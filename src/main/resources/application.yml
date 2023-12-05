@@ -51,6 +51,8 @@ keycloak:
 
 wallet-data:
   url: http://localhost:8086
+wallet-wda:
+  url: http://localhost:4200
 
 openapi:
   server:
