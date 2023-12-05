@@ -11,7 +11,7 @@ import static es.in2.wallet.user.registry.api.util.ApiUtils.GLOBAL_ENDPOINTS_API
 
 @Configuration
 @RequiredArgsConstructor
-public class CorsConfig {
+public class CorsGlobalConfig {
     private final WalletDrivingApplicationProperties walletDrivingApplicationProperties;
 
     @Bean
