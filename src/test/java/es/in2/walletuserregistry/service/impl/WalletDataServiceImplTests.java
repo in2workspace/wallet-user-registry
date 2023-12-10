@@ -18,8 +18,7 @@
 //
 //    @InjectMocks
 //    private WalletDataServiceImpl walletDataService;
-
-    // fixme: this test is not working
+//
 //    @Test
 //    void testSaveUser() {
 //        // Arrange
@@ -41,5 +40,5 @@
 //            result.as(StepVerifier::create).verifyComplete();
 //        }
 //    }
-
-}
+//
+//}
