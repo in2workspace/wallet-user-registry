@@ -43,11 +43,9 @@ wallet-user-registry:
   networks:
     local_network:
 ```
-**Important Note**:
-> The provided configuration is for connecting to HashiCorp Vault. If you wish to connect to Azure Key Vault, you will need to adjust the environment variables accordingly to use Azure's configurations.
 
 ## Project Status 
-The project is currently at version **1.0.0** and is in a stable state.
+The project is currently at version **1.0.1** and is in a stable state.
 
 ## Contact
 For any inquiries or collaboration, you can contact us at:
@@ -57,4 +55,4 @@ For any inquiries or collaboration, you can contact us at:
 
 ## Creation Date and Update Dates
 * **Creation Date:** November 9, 2023
-* **Last Updated:** December 4, 2023
+* **Last Updated:** December 5, 2023
