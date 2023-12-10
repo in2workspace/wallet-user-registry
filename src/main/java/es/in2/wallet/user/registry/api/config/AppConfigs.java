@@ -3,6 +3,7 @@ package es.in2.wallet.user.registry.api.config;
 import es.in2.wallet.user.registry.api.config.properties.KeycloakProperties;
 import es.in2.wallet.user.registry.api.config.properties.OpenApiProperties;
 import es.in2.wallet.user.registry.api.config.properties.WalletDataProperties;
+import es.in2.wallet.user.registry.api.config.properties.WalletDrivingApplicationProperties;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ public class AppConfigs {
     private final OpenApiProperties openApiProperties;
     private final WalletDataProperties walletDataProperties;
     private final KeycloakProperties keycloakProperties;
+    private final WalletDrivingApplicationProperties walletDrivingApplicationProperties;
 
     @PostConstruct
     void init() {
@@ -26,6 +28,7 @@ public class AppConfigs {
         log.info(prefixMessage, keycloakProperties.url());
         log.info(prefixMessage, keycloakProperties.realm());
         log.info(prefixMessage, walletDataProperties);
+        log.info(prefixMessage, walletDrivingApplicationProperties);
     }
 
 }
