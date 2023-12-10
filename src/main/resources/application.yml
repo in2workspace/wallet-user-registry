@@ -55,6 +55,9 @@ keycloak:
 wallet-data:
   url:
 
+wallet-wda:
+  url:
+
 openapi:
   server:
     url:

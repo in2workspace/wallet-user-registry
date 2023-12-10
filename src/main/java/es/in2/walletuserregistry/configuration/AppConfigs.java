@@ -1,9 +1,9 @@
-package es.in2.wallet.user.registry.api.config;
+package es.in2.walletuserregistry.configuration;
 
-import es.in2.wallet.user.registry.api.config.properties.KeycloakProperties;
-import es.in2.wallet.user.registry.api.config.properties.OpenApiProperties;
-import es.in2.wallet.user.registry.api.config.properties.WalletDataProperties;
-import es.in2.wallet.user.registry.api.config.properties.WalletDrivingApplicationProperties;
+import es.in2.walletuserregistry.configuration.properties.KeycloakProperties;
+import es.in2.walletuserregistry.configuration.properties.OpenApiProperties;
+import es.in2.walletuserregistry.configuration.properties.WalletDataProperties;
+import es.in2.walletuserregistry.configuration.properties.WalletDrivingApplicationProperties;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

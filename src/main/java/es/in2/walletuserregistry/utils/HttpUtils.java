@@ -21,7 +21,7 @@ import static es.in2.walletuserregistry.utils.MessageUtils.*;
 public class HttpUtils {
 
     private static final WebClient WEB_CLIENT = WebClient.builder().build();
-
+    public static final String GLOBAL_ENDPOINTS_API = "/api/v1/*";
     public static final String BEARER_PREFIX = "Bearer ";
 
     public static boolean isNullOrBlank(String string) {
