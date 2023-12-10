@@ -1,6 +1,5 @@
 package es.in2.walletuserregistry.facade.impl;
 
-import es.in2.walletuserregistry.exception.UserCreationException;
 import es.in2.walletuserregistry.domain.UserRegistryRequest;
 import es.in2.walletuserregistry.facade.UserRegistryFacadeService;
 import es.in2.walletuserregistry.service.KeycloakService;
