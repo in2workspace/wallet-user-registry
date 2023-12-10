@@ -41,6 +41,7 @@ jobs:
     name: build-project
     if: success()
     runs-on: ubuntu-latest
+    environment: test
 
     steps:
       - name: Checkout Repository
@@ -63,6 +64,7 @@ jobs:
     needs: build
     if: success()
     runs-on: ubuntu-latest
+    environment: test
 
     steps:
       - name: Checkout Repository
