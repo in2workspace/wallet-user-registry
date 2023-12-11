@@ -29,7 +29,7 @@ import java.util.*;
 
 import static es.in2.walletuserregistry.utils.HttpUtils.BEARER_PREFIX;
 import static es.in2.walletuserregistry.utils.HttpUtils.postRequestWithResponse;
-import static org.keycloak.OAuth2Constants.GRANT_TYPE;
+import static org.keycloak.OAuth2Constants.CLIENT_CREDENTIALS;
 
 @Service
 @RequiredArgsConstructor
@@ -77,7 +77,7 @@ public class KeycloakServiceImpl implements KeycloakService {
         List<Map.Entry<String, String>> headers = new ArrayList<>();
         headers.add(new AbstractMap.SimpleEntry<>(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED));
         // Body
-        String body = "grant_type=" + URLEncoder.encode(GRANT_TYPE, StandardCharsets.UTF_8) +
+        String body = "grant_type=" + URLEncoder.encode(CLIENT_CREDENTIALS, StandardCharsets.UTF_8) +
                 "&client_id=" + URLEncoder.encode(keycloakProperties.clientId(), StandardCharsets.UTF_8) +
                 "&client_secret=" + URLEncoder.encode(keycloakProperties.clientSecret(), StandardCharsets.UTF_8);
         return postRequestWithResponse(processId, url, headers, body)

@@ -21,7 +21,7 @@ public record KeycloakProperties(String url, String realm, String clientSecret, 
         this.url = Optional.ofNullable(url).orElse("http://localhost:8084");
         this.realm = Optional.ofNullable(realm).orElse("WalletIdP");
         this.clientSecret = Optional.ofNullable(clientSecret).orElse("fV51P8jFBo8VnFKMMuP3imw3H3i5mNck");
-        this.clientId = Optional.ofNullable(clientId).orElse("wallet-client");
+        this.clientId = Optional.ofNullable(clientId).orElse("user-registry-client");
     }
 
 }
