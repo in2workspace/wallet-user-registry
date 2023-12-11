@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update files to conform to checkstyle rules.
 - Spring MVC to Spring WebFlux.
 - Refactor code to use reactive programming.
-- Fix some User Registry Attributes and modified keycloak client names.
+- Fix some User Registry Attributes and modified keycloak client names
 
 ## [v1.0.0] - 2023-12-4
 
