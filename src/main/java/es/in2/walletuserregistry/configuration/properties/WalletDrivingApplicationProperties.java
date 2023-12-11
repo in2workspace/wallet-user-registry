@@ -5,6 +5,11 @@ import org.springframework.boot.context.properties.bind.ConstructorBinding;
 
 import java.util.Optional;
 
+/**
+ * WalletDrivingApplicationProperties
+ *
+ * @param url - wallet driving application url
+ */
 @ConfigurationProperties(prefix = "wallet-wda")
 public record WalletDrivingApplicationProperties(String url) {
 
