@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Spring MVC to Spring WebFlux.
 - Refactor code to use reactive programming.
 
+### Fixed
+- Fix bug in the creation of the user.
+
 ## [v1.0.0] - 2023-12-4
 
 ### Added
