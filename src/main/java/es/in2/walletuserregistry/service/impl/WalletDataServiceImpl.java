@@ -41,7 +41,7 @@ public class WalletDataServiceImpl implements WalletDataService {
             String body = objectMapper.writeValueAsString(UserWalletDataRequest.builder()
                     .userId(userId)
                     .username(userRegistryRequest.username())
-                    .email(userRegistryRequest.username())
+                    .email(userRegistryRequest.email())
                     .build());
             return postRequest(processId, url, headers, body);
         } catch (IOException e) {
