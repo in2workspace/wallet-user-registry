@@ -17,7 +17,7 @@ import static es.in2.walletuserregistry.utils.MessageUtils.*;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/v1/users")
+@RequestMapping(value = "/api/v2/users")
 @RequiredArgsConstructor
 public class UserController {
 

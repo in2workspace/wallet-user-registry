@@ -33,7 +33,7 @@ public class WalletDataServiceImpl implements WalletDataService {
     public Mono<Void> saveUser(String processId, UserRegistryRequest userRegistryRequest, String userId) {
         try {
             // URL
-            String url = walletDataProperties.url() + "/api/v1/users";
+            String url = walletDataProperties.url() + "/api/v2/users";
             // Headers
             List<Map.Entry<String, String>> headers = new ArrayList<>();
             headers.add(new AbstractMap.SimpleEntry<>(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE));
