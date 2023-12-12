@@ -42,7 +42,7 @@ class UserControllerTest {
                 .bindToController(userController)
                 .build()
                 .post()
-                .uri("/api/v1/users")
+                .uri("/api/v2/users")
                 .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
                 .bodyValue(userRegistryRequest)
                 .exchange()

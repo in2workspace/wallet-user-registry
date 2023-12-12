@@ -29,11 +29,12 @@ Now that you have the necessary dependencies, you can configure the wallet-user-
 ```yaml
 wallet-user-registry:
   container_name: wallet-user-registry
-  image: in2kizuna/wallet-user-registry:v1.0.0 
+  image: in2kizuna/wallet-user-registry:v2.0.0 
   environment:
     SERVER_PORT: "8085"
     OPENAPI_SERVER_URL: "http://wallet-user-registry:8085"
     WALLET-DATA_URL: "http://wallet-data:8086/api/users"
+    WALLET-WDA_URL: "<your-frontend-url>"
     KEYCLOAK_URL: "<your-keycloak-url>"
     KEYCLOAK_REALM: "<your-keycloak-realm>"
     KEYCLOAK_CLIENT-SECRET: "<your-keycloak-client-secret>"
@@ -45,7 +46,7 @@ wallet-user-registry:
 ```
 
 ## Project Status 
-The project is currently at version **1.0.1** and is in a stable state.
+The project is currently at version **2.0.0** and is in a stable state.
 
 ## Contact
 For any inquiries or collaboration, you can contact us at:
@@ -55,4 +56,4 @@ For any inquiries or collaboration, you can contact us at:
 
 ## Creation Date and Update Dates
 * **Creation Date:** November 9, 2023
-* **Last Updated:** December 5, 2023
+* **Last Updated:** December 12, 2023
