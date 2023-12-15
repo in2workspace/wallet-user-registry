@@ -38,57 +38,93 @@ jobs:
           category: "/language:${{matrix.language}}"
 
   build:
-    name: build-project
-    if: success()
+    name: Build and analyze
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Set up JDK
-        uses: actions/setup-java@v4
+      - uses: actions/checkout@v3
         with:
-          distribution: 'adopt'
-          java-version: '17'
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
-      - name: Make Gradlew Executable
-        run: chmod +x ./gradlew
-
-      - name: Build Project
-        run: ./gradlew build
-
-      - name: Upload JaCoCo Report
-        uses: actions/upload-artifact@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
         with:
-          name: jacoco-report
-          path: build/jacocoHtml/
+          java-version: 17
+          distribution: 'zulu' # Alternative distribution options are available
 
-  sonarcloud:
-    name: sonarcloud
-    needs: build
-    if: success()
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: read
-
-    steps:
-      - name: Download JaCoCo Report
-        uses: actions/download-artifact@v4
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
         with:
-          name: jacoco-report
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
 
-      - name: Analyze with SonarCloud
-        uses: SonarSource/sonarcloud-github-action@de2e56b42aa84d0b1c5b622644ac17e505c9a049
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+
+      - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args:
-            -Dsonar.projectKey=in2workspace_wallet-user-registry
-            -Dsonar.organization=in2workspace
-            -Dsonar.scm.disabled=true
-            -Dsonar.coverage.jacoco.xmlReportPaths=build/jacocoHtml/
+        run: ./gradlew build sonar --info
+
+#
+#
+#  build:
+#    name: build-project
+#    if: success()
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout Repository
+#        uses: actions/checkout@v3
+#
+#      - name: Set up JDK
+#        uses: actions/setup-java@v4
+#        with:
+#          distribution: 'adopt'
+#          java-version: '17'
+#
+#      - name: Make Gradlew Executable
+#        run: chmod +x ./gradlew
+#
+#      - name: Build Project
+#        run: ./gradlew build
+#
+#      - name: Upload JaCoCo Report
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: jacoco-report
+#          path: build/jacocoHtml/
+#
+#  sonarcloud:
+#    name: sonarcloud
+#    needs: build
+#    if: success()
+#    runs-on: ubuntu-latest
+#    permissions:
+#      pull-requests: read
+#
+#    steps:
+#      - name: Download JaCoCo Report
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: jacoco-report
+#
+#      - name: Analyze with SonarCloud
+#        uses: SonarSource/sonarcloud-github-action@de2e56b42aa84d0b1c5b622644ac17e505c9a049
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#        with:
+#          args:
+#            -Dsonar.projectKey=in2workspace_wallet-user-registry
+#            -Dsonar.organization=in2workspace
+#            -Dsonar.scm.disabled=true
+#            -Dsonar.coverage.jacoco.xmlReportPaths=build/jacocoHtml/
 
   deploy:
     name: deploy-project
