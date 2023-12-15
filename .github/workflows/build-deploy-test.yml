@@ -65,6 +65,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: read
+    environment: test
 
     steps:
       - name: Analyze with SonarCloud
