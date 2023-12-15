@@ -10,6 +10,7 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=in2workspace_wallet-user-registry)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=ncloc)](https://sonarcloud.io/dashboard?id=in2workspace_wallet-user-registry)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=alert_status)](https://sonarcloud.io/dashboard?id=in2workspace_wallet-user-registry)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=coverage)](https://sonarcloud.io/summary/new_code?id=in2workspace_wallet-user-registry)
 
 </div>
 
