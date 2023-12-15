@@ -1,4 +1,18 @@
-# WALLET-USER-REGISTRY
+<div style="text-align: center;">
+
+<h1>Wallet User Registry</h1>
+<span>by </span><a href="https://in2.es">in2.es</a>
+<p><p>
+
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=security_rating)](https://sonarcloud.io/dashboard?id=in2workspace_wallet-user-registry)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=in2workspace_wallet-user-registry)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=in2workspace_wallet-user-registry)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=in2workspace_wallet-user-registry)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=ncloc)](https://sonarcloud.io/dashboard?id=in2workspace_wallet-user-registry)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=alert_status)](https://sonarcloud.io/dashboard?id=in2workspace_wallet-user-registry)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=coverage)](https://sonarcloud.io/summary/new_code?id=in2workspace_wallet-user-registry)
+
+</div>
 
 ## Introduction
 The Wallet-User-Registry microservice is a crucial component designed to create and manage users within an identity provider, in this case, Keycloak. This service plays a vital role in the security and user management of our application, allowing us to associate the data we store for each user with their token and utilize Keycloak security capabilities to protect our API endpoints.
@@ -29,11 +43,12 @@ Now that you have the necessary dependencies, you can configure the wallet-user-
 ```yaml
 wallet-user-registry:
   container_name: wallet-user-registry
-  image: in2kizuna/wallet-user-registry:v1.0.0 
+  image: in2kizuna/wallet-user-registry:v2.0.0 
   environment:
     SERVER_PORT: "8085"
     OPENAPI_SERVER_URL: "http://wallet-user-registry:8085"
     WALLET-DATA_URL: "http://wallet-data:8086/api/users"
+    WALLET-WDA_URL: "<your-frontend-url>"
     KEYCLOAK_URL: "<your-keycloak-url>"
     KEYCLOAK_REALM: "<your-keycloak-realm>"
     KEYCLOAK_CLIENT-SECRET: "<your-keycloak-client-secret>"
@@ -43,11 +58,9 @@ wallet-user-registry:
   networks:
     local_network:
 ```
-**Important Note**:
-> The provided configuration is for connecting to HashiCorp Vault. If you wish to connect to Azure Key Vault, you will need to adjust the environment variables accordingly to use Azure's configurations.
 
 ## Project Status 
-The project is currently at version **1.0.0** and is in a stable state.
+The project is currently at version **2.0.0** and is in a stable state.
 
 ## Contact
 For any inquiries or collaboration, you can contact us at:
@@ -57,4 +70,4 @@ For any inquiries or collaboration, you can contact us at:
 
 ## Creation Date and Update Dates
 * **Creation Date:** November 9, 2023
-* **Last Updated:** December 4, 2023
+* **Last Updated:** December 12, 2023
