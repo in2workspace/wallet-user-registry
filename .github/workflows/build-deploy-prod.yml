@@ -41,7 +41,6 @@ jobs:
     name: build-project
     if: success()
     runs-on: ubuntu-latest
-    environment: prod
 
     steps:
       - name: Checkout Repository
@@ -58,6 +57,26 @@ jobs:
 
       - name: Build Project
         run: ./gradlew build
+
+  sonarcloud:
+    name: sonarcloud
+    needs: build
+    if: success()
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+
+    steps:
+      - name: Analyze with SonarCloud
+        uses: SonarSource/sonarcloud-github-action@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args:
+            -Dsonar.projectKey=in2workspace_wallet-user-registry
+            -Dsonar.organization=in2workspace
+            -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/test/jacocoTestReport.xml
 
   deploy:
     name: deploy-project
