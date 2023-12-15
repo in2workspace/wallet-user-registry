@@ -51,6 +51,9 @@ jobs:
           java-version: 17
           distribution: 'zulu' # Alternative distribution options are available
 
+      - name: Make Gradlew Executable
+        run: chmod +x ./gradlew
+
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
