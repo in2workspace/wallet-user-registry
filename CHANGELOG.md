@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add support for GitHub Actions for CI/CD.
 - Enabled centralized cross-origin resource sharing (CORS) to allow frontend applications to call the endpoints.
 - Set the frontend URL dynamically through an external environment variable, enhancing configuration flexibility.
+- Added SonarCloud for code quality.
 
 ### Modified
 - Update files to conform to checkstyle rules.
