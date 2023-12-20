@@ -1,4 +1,18 @@
-# WALLET-USER-REGISTRY
+<div style="text-align: center;">
+
+<h1>Wallet User Registry</h1>
+<span>by </span><a href="https://in2.es">in2.es</a>
+<p><p>
+
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=security_rating)](https://sonarcloud.io/dashboard?id=in2workspace_wallet-user-registry)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=in2workspace_wallet-user-registry)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=in2workspace_wallet-user-registry)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=in2workspace_wallet-user-registry)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=ncloc)](https://sonarcloud.io/dashboard?id=in2workspace_wallet-user-registry)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=alert_status)](https://sonarcloud.io/dashboard?id=in2workspace_wallet-user-registry)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=in2workspace_wallet-user-registry&metric=coverage)](https://sonarcloud.io/summary/new_code?id=in2workspace_wallet-user-registry)
+
+</div>
 
 ## Introduction
 The Wallet-User-Registry microservice is a crucial component designed to create and manage users within an identity provider, in this case, Keycloak. This service plays a vital role in the security and user management of our application, allowing us to associate the data we store for each user with their token and utilize Keycloak security capabilities to protect our API endpoints.
