@@ -31,18 +31,15 @@ wallet-user-registry:
   container_name: wallet-user-registry
   image: in2kizuna/wallet-user-registry:v2.0.0 
   environment:
-    SERVER_PORT: "8085"
-    OPENAPI_SERVER_URL: "http://wallet-user-registry:8085"
-    WALLET-DATA_URL: "http://wallet-data:8086/api/users"
+    OPENAPI_SERVER_URL: "http://localhost:8085"
+    WALLET-DATA_URL: "http://wallet-data:8080/api/v2/users"
     WALLET-WDA_URL: "<your-frontend-url>"
     KEYCLOAK_URL: "<your-keycloak-url>"
     KEYCLOAK_REALM: "<your-keycloak-realm>"
     KEYCLOAK_CLIENT-SECRET: "<your-keycloak-client-secret>"
     KEYCLOAK_CLIENT-ID: "<your-keycloak-client-id>"
   ports:
-    - "8085:8085"
-  networks:
-    local_network:
+    - "8085:8080"
 ```
 
 ## Project Status 
