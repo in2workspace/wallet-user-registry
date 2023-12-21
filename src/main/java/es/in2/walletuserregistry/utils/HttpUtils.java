@@ -5,7 +5,6 @@ import es.in2.walletuserregistry.exception.ForbiddenAccessException;
 import es.in2.walletuserregistry.exception.UnauthorizedAccessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -17,9 +16,11 @@ import java.util.NoSuchElementException;
 import static es.in2.walletuserregistry.utils.MessageUtils.*;
 
 @Slf4j
-@Component
 public class HttpUtils {
 
+    private HttpUtils() {
+        throw new IllegalStateException("Utility class");
+    }
     private static final WebClient WEB_CLIENT = WebClient.builder().build();
     public static final String GLOBAL_ENDPOINTS_API = "/api/v2/*";
     public static final String BEARER_PREFIX = "Bearer ";
