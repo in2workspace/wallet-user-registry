@@ -1,135 +1,135 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.1.5'
-	id 'io.spring.dependency-management' version '1.1.3'
-	id 'jacoco'
-	id "org.sonarqube" version "4.4.1.3373"
-	id 'checkstyle'
-	id 'org.owasp.dependencycheck' version '8.4.0'
+    id 'java'
+    id 'org.springframework.boot' version '3.1.5'
+    id 'io.spring.dependency-management' version '1.1.3'
+    id 'jacoco'
+    id "org.sonarqube" version "4.4.1.3373"
+    id 'checkstyle'
+    id 'org.owasp.dependencycheck' version '8.4.0'
 }
 
 group = 'es.in2'
 version = '2.0.0'
 
 java {
-	sourceCompatibility = '17'
+    sourceCompatibility = '17'
 }
 
 jacoco {
-	toolVersion = "0.8.9"
+    toolVersion = "0.8.9"
 }
 
 checkstyle {
-	configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+    configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
 }
 
 checkstyleMain {
-	source ='src/main/java'
+    source = 'src/main/java'
 }
 
 checkstyleTest {
-	source ='src/test/java'
+    source = 'src/test/java'
 }
 
 sonar {
-	properties {
-		property "sonar.projectName", "Wallet User Registry"
-		property "sonar.projectKey", "in2workspace_wallet-user-registry"
-		property "sonar.organization", "in2workspace"
-		property "sonar.host.url", "https://sonarcloud.io"
-		property "sonar.coverage.exclusions",
-				"src/main/java/es/in2/walletuserregistry/WalletCreationApplication.java, " +
-						"src/main/java/es/in2/walletuserregistry/configuration/**, " +
-						"src/main/java/es/in2/walletuserregistry/domain/**, " +
-						"src/main/java/es/in2/walletuserregistry/exception/**, " +
-						"src/main/java/es/in2/walletuserregistry/utils/**"
-	}
+    properties {
+        property "sonar.projectName", "Wallet User Registry"
+        property "sonar.projectKey", "in2workspace_wallet-user-registry"
+        property "sonar.organization", "in2workspace"
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.coverage.exclusions",
+                "src/main/java/es/in2/walletuserregistry/WalletCreationApplication.java, " +
+                        "src/main/java/es/in2/walletuserregistry/configuration/**, " +
+                        "src/main/java/es/in2/walletuserregistry/domain/**, " +
+                        "src/main/java/es/in2/walletuserregistry/exception/**, " +
+                        "src/main/java/es/in2/walletuserregistry/utils/**"
+    }
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	// Spring
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-configuration-processor'
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    // Spring
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
-	// Keycloak
-	implementation('jakarta.transaction:jakarta.transaction-api:2.0.0')
-	implementation("org.keycloak:keycloak-admin-client:22.0.5")
+    // Keycloak
+    implementation('jakarta.transaction:jakarta.transaction-api:2.0.0')
+    implementation("org.keycloak:keycloak-admin-client:22.0.5")
 
-	// JSON
-	implementation 'com.fasterxml.jackson.core:jackson-databind'
-	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    // JSON
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
 
-	// Lombok
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 
-	// Documentation
-	implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.2.0'
+    // Documentation
+    implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.2.0'
 
-	// Logback
-	implementation 'ch.qos.logback:logback-classic:1.4.11'
-	implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
+    // Logback
+    implementation 'ch.qos.logback:logback-classic:1.4.11'
+    implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
 
-	// Prometheus
-	implementation 'io.micrometer:micrometer-tracing-bridge-brave'
-	implementation 'io.micrometer:micrometer-registry-prometheus:1.11.5'
+    // Prometheus
+    implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+    implementation 'io.micrometer:micrometer-registry-prometheus:1.11.5'
 
-	// Testing
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'io.projectreactor:reactor-test'
+    // Testing
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
 }
 
 tasks.named('compileJava') {
-	inputs.files(tasks.named('processResources'))
+    inputs.files(tasks.named('processResources'))
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
-	finalizedBy(tasks.jacocoTestReport)
+    useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
 }
 
 tasks.jacocoTestReport {
-	dependsOn(tasks.test)
-	reports {
-		xml.required.set(true)
-		csv.required.set(false)
-		html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
-	}
-	afterEvaluate {
-		classDirectories.setFrom(files(classDirectories.files.collect {
-			fileTree(dir: it, exclude: [
-					"src/main/java/es/in2/walletuserregistry/UserRegistryApplication.java",
-					"src/main/java/es/in2/walletuserregistry/configuration/**",
-					"src/main/java/es/in2/walletuserregistry/domain/**",
-					"src/main/java/es/in2/walletuserregistry/exception/**",
-					"src/main/java/es/in2/walletuserregistry/utils/**"
-			])
-		}))
-	}
+    dependsOn(tasks.test)
+    reports {
+        xml.required.set(true)
+        csv.required.set(false)
+        html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "src/main/java/es/in2/walletuserregistry/UserRegistryApplication.java",
+                    "src/main/java/es/in2/walletuserregistry/configuration/**",
+                    "src/main/java/es/in2/walletuserregistry/domain/**",
+                    "src/main/java/es/in2/walletuserregistry/exception/**",
+                    "src/main/java/es/in2/walletuserregistry/utils/**"
+            ])
+        }))
+    }
 }
 
 tasks.register('printVersion') {
-	doLast {
-		println version
-	}
+    doLast {
+        println version
+    }
 }
 
 tasks.register('printProjectName') {
-	doLast {
-		println rootProject.name
-	}
+    doLast {
+        println rootProject.name
+    }
 }
