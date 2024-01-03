@@ -24,6 +24,8 @@
 ## Introduction
 The Wallet-User-Registry microservice is a crucial component designed to create and manage users within an identity provider, in this case, Keycloak. This service plays a vital role in the security and user management of our application, allowing us to associate the data we store for each user with their token and utilize Keycloak security capabilities to protect our API endpoints.
 
+**NOTE**:
+
 Developed with Java 17 and Spring Boot 3.1.5, this microservice adheres to the principles of service-oriented programming and is managed using Gradle Groovy, facilitating dependency management and build processes.
 
 ## Main Features
