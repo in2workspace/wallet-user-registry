@@ -49,6 +49,39 @@ class UserControllerTest {
                 .expectStatus().isCreated();
     }
 
+//    @Test
+//    @DisplayName("Test incorrect email")
+//    void testIncorrectEmailThrowsException() throws UserCreationException {
+//        // Arrange
+//        UserRegistryRequest userRegistryRequest =
+//                UserRegistryRequest.builder()
+//                        .username("j.doe")
+//                        .email("john.doeexample.com")
+//                        .password("1234")
+//                        .build();
+//        // Mock
+//        when(userRegistryFacadeService.createUser(anyString(),
+//                eq(userRegistryRequest))).thenThrow(new UserCreationException("Incorrect email"));
+//        //.thenReturn(Mono.error(new UserCreationException("Incorrect
+//        // " +"email")));
+//        // Act & Assert
+//        WebTestClient
+//                .bindToController(userController)
+//                .build()
+//                .post()
+//                .uri("/api/v2/users")
+//                .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
+//                .bodyValue(userRegistryRequest)
+//                .exchange()
+//                .expectStatus().isBadRequest();
+//        //.expectBody()
+//        //.jsonPath("$.httpStatus").isEqualTo("BAD_REQUEST")
+//        //.jsonPath("$.message").isEqualTo("Incorrect email");
+//
+////        StepVerifier.create(userRegistryFacadeService.createUser(anyString()
+////                      , any(UserRegistryRequest.class)))
+////            .expectError(UserCreationException.class)
+////          .verify();
+//    }
+
 }
-
-

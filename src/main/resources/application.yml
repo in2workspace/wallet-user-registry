@@ -47,13 +47,13 @@ springdoc:
     operations-sorter: method
 
 keycloak:
-  url: http://localhost:9099
-  realm: wallet
-  client-secret: fV51P8jFBo8VnFKMMuP3imw3H3i5mNck
-  client-id: user-registry-client
+  url:
+  realm:
+  client-secret:
+  client-id:
 
 wallet-data:
-  url: http://localhost:8086
+  url:
 
 wallet-wda:
   url:
